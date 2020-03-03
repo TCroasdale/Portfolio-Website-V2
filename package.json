@@ -1,0 +1,20 @@
+{
+  "name": "portfolio-website-v2",
+  "version": "2.0.0",
+  "description": "My polished Nuxt.js project",
+  "author": "Tom Croasdale",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2"
+  }
+}
