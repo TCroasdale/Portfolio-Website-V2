@@ -5,19 +5,19 @@
       <h3>Software Developer</h3>
     </div>
     <nav ref="navbar">
-      <div v-bind:style="highlightStyle" ref="nav-highlight" id="nav-highlight"></div>
+      <div :style="highlightStyle" ref="nav-highlight" id="nav-highlight"></div>
       <ul>
-        <li ref="Home-tab" v-on:mouseover="tab='Home-tab'" v-on:mouseout="tab=currentTab">Home</li>
-        <li ref="About-tab" v-on:mouseover="tab='About-tab'" v-on:mouseout="tab=currentTab">About</li>
-        <li ref="Work-tab" v-on:mouseover="tab='Work-tab'" v-on:mouseout="tab=currentTab">My Work</li>
-        <li ref="Contact-tab" v-on:mouseover="tab='Contact-tab'" v-on:mouseout="tab=currentTab">Contact</li>
+        <li ref="Home-tab" @click="currentTab='Home-tab'" @mouseover="tab='Home-tab'" @mouseout="tab=currentTab">Home</li>
+        <li ref="About-tab" @click="currentTab='About-tab'" @mouseover="tab='About-tab'" @mouseout="tab=currentTab">About</li>
+        <li ref="Work-tab" @click="currentTab='Work-tab'" @mouseover="tab='Work-tab'" @mouseout="tab=currentTab">My Work</li>
+        <li ref="Contact-tab" @click="currentTab='Contact-tab'" @mouseover="tab='Contact-tab'" @mouseout="tab=currentTab">Contact</li>
       </ul>
     </nav>
   </div>
 </template>
 
 <script>
-module.exports = {
+export default {
   data: () => {
     return {
       tab: undefined,

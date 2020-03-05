@@ -19,26 +19,27 @@ export default {
   },
   methods: {
     animate: function () {
-      requestAnimationFrame( this.animate );
-      this.renderer.render( this.scene, this.camera );
+      requestAnimationFrame(this.animate)
+      this.renderer.render(this.scene, this.camera)
     }
   },
   mounted: function () {
     this.scene = new THREE.Scene();
     this.size.w = this.$refs['canvas-parent'].offsetWidth
     this.size.h = this.$refs['canvas-parent'].offsetHeight
-    this.camera = new THREE.PerspectiveCamera( 75, this.size.w / this.size.h, 0.1, 100 );
+    this.camera = new THREE.PerspectiveCamera(75, this.size.w / this.size.h, 0.1, 100)
 
-    this.renderer = new THREE.WebGLRenderer();
-    this.renderer.setSize( this.size.w, this.size.h );
-    this.$refs['canvas-parent'].appendChild( this.renderer.domElement );
+    this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true})
+    this.renderer.setSize(this.size.w, this.size.h)
+    this.$refs['canvas-parent'].appendChild(this.renderer.domElement)
+    this.renderer.setClearColor(0xA3B8C2)
 
-    let geometry = new THREE.BoxGeometry();
-    let material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-    let cube = new THREE.Mesh( geometry, material );
-    this.scene.add( cube );
+    let geometry = new THREE.SphereGeometry(1, 8, 8)
+    let material = new THREE.MeshNormalMaterial()
+    let cube = new THREE.Mesh(geometry, material)
+    this.scene.add(cube)
 
-    this.camera.position.z = 5;
+    this.camera.position.z = 5
 
     this.animate()
   }
