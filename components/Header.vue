@@ -1,5 +1,5 @@
 <template>
-  <div id="header" v-bind:class="{large : isLarge }">
+  <div id="header" v-bind:class="{ large : isLarge }">
     <div class="title">
       <h1>Tom Croasdale</h1>
       <h3>Software Developer</h3>
@@ -8,22 +8,22 @@
       <ul>
         <a href="#">
           <li ref="Home-tab" @click="currentTab='Home-tab'" @mouseover="tab='Home-tab'" @mouseout="tab=currentTab">
-            Home
+            <i class="fas fa-home"></i> Home
           </li>
         </a>
         <a href="#">
           <li ref="About-tab" @click="currentTab='About-tab'" @mouseover="tab='About-tab'" @mouseout="tab=currentTab">
-            About
+            <i v-bind:class="icon" class="fas"></i> About
           </li>
         </a>
         <a href="#">
           <li ref="Work-tab" @click="currentTab='Work-tab'" @mouseover="tab='Work-tab'" @mouseout="tab=currentTab">
-            My Work
+            <i class="fas fa-briefcase"></i> My Work
           </li>
         </a>
         <a href="#">
           <li ref="Contact-tab" @click="currentTab='Contact-tab'" @mouseover="tab='Contact-tab'" @mouseout="tab=currentTab">
-            Contact
+            <i class="fas fa-comment-dots"></i> Contact
           </li>
         </a>
       </ul>
@@ -41,7 +41,9 @@ export default {
       currentTab: 'Home-tab',
       highlightStyle: {
         left: "50px"
-      }
+      },
+      icons: ['fa-user', 'fa-user-astronaut', 'fa-user-secret', 'fa-user-ninja', 'fa-user-graduate'],
+      icon: []
     }
   },
   watch: {
@@ -51,10 +53,13 @@ export default {
     },
     currentTab: function(val, oldVal) {
       this.isLarge = val == 'Home-tab'
+      this.$emit('change-tab', this.currentTab)
     }
   },
   mounted: function() {
     this.tab = this.currentTab
+    this.icon.push(this.icons[Math.floor(Math.random() * this.icons.length)])
+    console.log("using icon", this.icon[0])
   }
 }
 </script>
@@ -62,15 +67,22 @@ export default {
 <style lang="scss" scoped>
   @import "~/assets/colours.scss";
 
+  @keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 100% }
+  }
 
   #header {
-    width: 100%;
+    // width: 100%;
     text-align: center;
     justify-content: center;
-    transition-duration: 1s;
-    transition-delay: 1s width;
-    transition-property: width, height, transform;
-    transition-timing-function: linear;
+    margin: 0 0;
+    display: block;
+    height: 4rem;
+
+    /* Transition to small */
+    transition: width 0.25s ease-in 0.25s, margin 0.25s ease-in 0.25s, height 0.25s ease-in 0.25s,
+    transform 0.25s ease-out 0.0s;
   }
 
   .title {
@@ -80,9 +92,9 @@ export default {
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     text-align: center;
 
-    transition-duration: 1s;
-    transition-property: height, border-radius;
-    transition-timing-function: linear;
+    /* Transition to small */
+    transition: width 0.25s ease-in 0.25s, margin 0.25s ease-in 0.25s, height 0.25s ease-in 0.25s,
+    transform 0.25s ease-out 0.0s;
   }
 
   #nav-highlight {
@@ -104,46 +116,65 @@ export default {
 
     height: 2rem;
 
-    transition-duration: 1s;
-    transition-property: height, border-radius;
-    transition-timing-function: linear;
+    /** Transition to large */
+      transition: border-radius 0.25s ease-in 0.0s, height 0.25s ease-in 0.0s, font-size 0.25s ease-in 0.0s,
+      transform 0.25s ease-out 0.25s;
   }
 
   nav ul {
     margin-top: 0;
     padding: 6px 0 6px 0;
     height: 1rem;
+
   }
 
   nav ul li {
     display: inline-block;
     width: 20%;
+    color: $colour-primary-0
   }
 
-   #header.large {
-     width: 50%;
-     height: 12rem;
-     margin: 0 0;
-     border-radius: 15px;
-     justify-content: center;
-    //  box-shadow: 0px 0px 15px black;
-     transform: translate(50%, 40vh);
+
+  #header.large {
+    // width: 75%;
+    height: 12rem;
+    border-radius: 15px;
+    justify-content: center;
+    margin: 0 12.5%;
+  //  box-shadow: 0px 0px 15px black;
+    transform: translateY(40vh);
+
+    /** Transition to large */
+    transition: margin 0.25s ease-in 0.0s, height 0.25s ease-in 0.0s,
+    transform 0.25s ease-out 0.25s;
 
     .title {
       height: 8rem;
       font-size: 1.5rem;
       border-top-left-radius: 15px;
       border-top-right-radius: 15px;
+
+      /** Transition to large */
+      transition: border-radius 0.25s ease-in 0.0s, height 0.25s ease-in 0.0s, font-size 0.25s ease-in 0.0s,
+      transform 0.25s ease-out 0.25s;
     }
 
     nav {
       height: 4rem;
       border-bottom-left-radius: 15px;
       border-bottom-right-radius: 15px;
+
+      /** Transition to large */
+      transition: border-radius 0.25s ease-in 0.0s, height 0.25s ease-in 0.0s, font-size 0.25s ease-in 0.0s,
+      transform 0.25s ease-out 0.25s;
     }
 
     nav ul {
       transform: translateY(50%);
+
+      /** Transition to large */
+      transition: border-radius 0.25s ease-in 0.0s, height 0.25s ease-in 0.0s, font-size 0.25s ease-in 0.0s,
+      transform 0.25s ease-out 0.25s;
     }
 
     #nav-highlight {

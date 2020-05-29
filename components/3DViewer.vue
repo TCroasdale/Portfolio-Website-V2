@@ -33,7 +33,7 @@ export default {
 
       this.camera.position.x = Math.sin(this.clock.elapsedTime * 0.25) * 25 * this.scale
       this.camera.position.z = Math.cos(this.clock.elapsedTime * 0.25) * 25 * this.scale
-      this.camera.lookAt(0,0,0)
+      this.camera.lookAt(this.bodies[this.bodies.length - 1].position)
 
       this.renderer.render(this.scene, this.camera)
     },
@@ -54,7 +54,8 @@ export default {
         body.position.set(x, y, z)
         body.userData = {
           vx: 0, vy: 0, vz: 0,
-          m: size
+          m: size,
+          canMove: true
         }
         this.scene.add(body)
         this.bodies.push(body)
@@ -71,7 +72,8 @@ export default {
       body.position.set(x, y, z)
       body.userData = {
         vx: 0, vy: 0, vz: 0,
-        m: size * 10
+        m: size,
+        canMove: false
       }
       this.scene.add(body)
       body.add(light)
@@ -82,30 +84,31 @@ export default {
       let dT = this.clock.getDelta()
       for (let i=0; i < this.bodies.length; i++){
         let bodyI = this.bodies[i]
-        let sum = { x: 0, y: 0, z: 0 }
-        for (let j=0; j < this.bodies.length; j++){
-          if (i != j) {
-            let bodyJ = this.bodies[j]
-            let diff = { x: bodyJ.position.x - bodyI.position.x,
-                        y: bodyJ.position.y - bodyI.position.y,
-                        z: bodyJ.position.z - bodyI.position.z }
+        if (bodyI.userData.canMove) {
+          let sum = { x: 0, y: 0, z: 0 }
+          for (let j=0; j < this.bodies.length; j++){
+            if (i != j) {
+              let bodyJ = this.bodies[j]
+              let diff = { x: bodyJ.position.x - bodyI.position.x,
+                          y: bodyJ.position.y - bodyI.position.y,
+                          z: bodyJ.position.z - bodyI.position.z }
 
-            let magSq = (diff.x * diff.x) + (diff.y * diff.y) + (diff.z * diff.z)
-            if (magSq > bodyI.userData.m * this.bodies.length){
-              let denominator = Math.sqrt(magSq)
-              denominator = denominator * denominator * denominator
+              let magSq = (diff.x * diff.x) + (diff.y * diff.y) + (diff.z * diff.z)
+              if (magSq > bodyI.userData.m * this.bodies.length){
+                let denominator = Math.sqrt(magSq + 0.01)
+                denominator = denominator * denominator * denominator
 
-              sum.x += (bodyJ.userData.m * diff.x) / denominator
-              sum.y += (bodyJ.userData.m * diff.y) / denominator
-              sum.z += (bodyJ.userData.m * diff.z) / denominator
+                sum.x += (bodyJ.userData.m * diff.x) / denominator
+                sum.y += (bodyJ.userData.m * diff.y) / denominator
+                sum.z += (bodyJ.userData.m * diff.z) / denominator
+              }
             }
           }
+          let a = { x: sum.x * G, y: sum.y * G, z: sum.z * G }
+          bodyI.userData.vx += a.x * dT
+          bodyI.userData.vy += a.y * dT
+          bodyI.userData.vz += a.z * dT
         }
-        let a = { x: sum.x * G, y: sum.y * G, z: sum.z * G }
-        // let a = { x: F.x, y: F.x, z: F.z }
-        bodyI.userData.vx += a.x * dT
-        bodyI.userData.vy += a.y * dT
-        bodyI.userData.vz += a.z * dT
       }
 
 
