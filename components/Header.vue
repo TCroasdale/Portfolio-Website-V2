@@ -6,10 +6,26 @@
     </div>
     <nav ref="navbar">
       <ul>
-        <a href="#"><li ref="Home-tab" @click="currentTab='Home-tab'" @mouseover="tab='Home-tab'" @mouseout="tab=currentTab"><i class="fas fa-home"></i>Home</li></a>
-        <a href="#"><li ref="About-tab" @click="currentTab='About-tab'" @mouseover="tab='About-tab'" @mouseout="tab=currentTab">About</li></a>
-        <a href="#"><li ref="Work-tab" @click="currentTab='Work-tab'" @mouseover="tab='Work-tab'" @mouseout="tab=currentTab">My Work</li></a>
-        <a href="#"><li ref="Contact-tab" @click="currentTab='Contact-tab'" @mouseover="tab='Contact-tab'" @mouseout="tab=currentTab">Contact</li></a>
+        <a href="#">
+          <li ref="Home-tab" @click="currentTab='Home-tab'" @mouseover="tab='Home-tab'" @mouseout="tab=currentTab">
+            Home
+          </li>
+        </a>
+        <a href="#">
+          <li ref="About-tab" @click="currentTab='About-tab'" @mouseover="tab='About-tab'" @mouseout="tab=currentTab">
+            About
+          </li>
+        </a>
+        <a href="#">
+          <li ref="Work-tab" @click="currentTab='Work-tab'" @mouseover="tab='Work-tab'" @mouseout="tab=currentTab">
+            My Work
+          </li>
+        </a>
+        <a href="#">
+          <li ref="Contact-tab" @click="currentTab='Contact-tab'" @mouseover="tab='Contact-tab'" @mouseout="tab=currentTab">
+            Contact
+          </li>
+        </a>
       </ul>
       <div :style="highlightStyle" ref="nav-highlight" id="nav-highlight"></div>
     </nav>
@@ -52,6 +68,7 @@ export default {
     text-align: center;
     justify-content: center;
     transition-duration: 1s;
+    transition-delay: 1s width;
     transition-property: width, height, transform;
     transition-timing-function: linear;
   }

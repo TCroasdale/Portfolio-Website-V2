@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <Header />
+    <Header></Header>
     <div>
-      <ThreeDViewer />
+      <ThreeDViewer></ThreeDViewer>
     </div>
     <script src="https://kit.fontawesome.com/af2b26fd07.js" crossorigin="anonymous"></script>
   </div>
