@@ -36,7 +36,8 @@ export default {
   mounted: function() {
     this.tab = this.currentTab
     let a = this.$refs['navbar']
-    this.highlightStyle.top = a.offsetTop + a.offsetHeight - 2 + 'px'
+    this.highlightStyle.top = a.offsetTop + a.offsetHeight - 4 + 'px'
+    this.highlightStyle.left = this.$refs[this.currentTab].offsetLeft + 'px'
   }
 }
 </script>
@@ -59,11 +60,10 @@ export default {
 
   #nav-highlight {
     position: fixed;
-    height: 2px;
+    height: 4px;
     width: 20%;
     background-color: $colour-primary-0;
-    transition: left 0.1s linear;
-    transition-delay: 0.01s;
+    transition: left 0.1s linear 0.01s;
   }
 
   nav {
