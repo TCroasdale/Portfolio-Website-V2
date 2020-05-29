@@ -40,17 +40,17 @@ export default {
     this.animate()
 
     this.loader = new GLTF.GLTFLoader()
-    this.loader.load('/models/FullScene.glb', (gltf) => {
-      console.log("gltf", gltf)
-      this.scene.add(gltf.scene)
-      this.camera.position.z = 40
-      this.camera.position.y = 50
-      console.log(this.camera)
-    }, (xhr) => {
-      console.log((xhr.loaded / xhr.total * 100) + '% loaded')
-    }, (err) => {
-      console.log("err", err)
-    })
+    // this.loader.load('/models/FullScene.glb', (gltf) => {
+    //   console.log("gltf", gltf)
+    //   this.scene.add(gltf.scene)
+    //   this.camera.position.z = 40
+    //   this.camera.position.y = 50
+    //   console.log(this.camera)
+    // }, (xhr) => {
+    //   console.log((xhr.loaded / xhr.total * 100) + '% loaded')
+    // }, (err) => {
+    //   console.log("err", err)
+    // })
   }
 }
 </script>
