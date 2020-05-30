@@ -1,8 +1,26 @@
 <template>
   <div>
+    <Header ref="header"></Header>
+    <div>
+      <ThreeDViewer></ThreeDViewer>
+    </div>
     <nuxt />
   </div>
 </template>
+
+<script>
+import Logo from '~/components/Logo.vue'
+import Header from '~/components/Header.vue'
+import ThreeDViewer from '~/components/3DViewer.vue'
+
+export default {
+  components: {
+    Logo,
+    Header,
+    ThreeDViewer
+  }
+}
+</script>
 
 <style>
 html {

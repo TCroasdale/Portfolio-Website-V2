@@ -4,9 +4,14 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "echo",
-      "type": "shell",
-      "command": "echo Hello"
+      "label": "build and start",
+      "type": "npm",
+      "script": "nuxt build && nuxt start"
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": []
     }
   ]
 }

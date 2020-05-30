@@ -5,20 +5,17 @@
 </template>
 
 <script>
+
 export default {
   data: () => {
     return {
       aboutTab: false,
-      workTab: false,
+      workTab: true,
       contactTab: false,
     }
   },
   methods: {
-    changeTab: function (e) {
-      this.aboutTab = e == "About-tab"
-      this.workTab = e == "Work-tab"
-      this.contactTab = e == "Contact-tab"
-    }
+    changeTab: function (e) {}
   }
   
 
