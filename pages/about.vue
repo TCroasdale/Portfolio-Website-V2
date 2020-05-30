@@ -1,20 +1,27 @@
 <template>
   <div class="container">
-    <script src="https://kit.fontawesome.com/af2b26fd07.js" crossorigin="anonymous"></script>
+    <component :is="pageContent"></component>
   </div>
 </template>
 
 <script>
 export default {
+  asyncData({ app }) {
+    return {
+      // allBlogPosts: app.$markdown.content,
+      // blogPostFrontMatter: app.$markdown.loadData()
+    }
+  },
   data: () => {
     return {
       aboutTab: false,
       workTab: false,
       contactTab: false,
+      pageContent: null
     }
   },
-  methods: {
-    changeTab: function (e) {}
+  created() {
+    // this.pageContent = () => this.$markdown.loadContent()
   }
   
 

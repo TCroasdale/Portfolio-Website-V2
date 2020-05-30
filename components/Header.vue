@@ -8,22 +8,22 @@
       <ul>
         <nuxt-link to="/">
           <li ref="Home-tab" @click="currentTab='Home-tab'" @mouseover="tab='Home-tab'" @mouseout="tab=currentTab">
-            <i class="fas fa-home"></i> <span class="hide-small">Home</span>
+            <Icon icon="home"></Icon> <span class="hide-small">Home</span>
           </li>
         </nuxt-link>
         <nuxt-link to="/about">
           <li ref="About-tab" @click="currentTab='About-tab'" @mouseover="tab='About-tab'" @mouseout="tab=currentTab">
-            <i v-bind:class="icon" class="fas"></i> <span class="hide-small">About</span>
+            <Icon v-bind:icon="icon"></Icon> <span class="hide-small">About</span>
           </li>
         </nuxt-link>
         <nuxt-link to="/work">
           <li ref="Work-tab" @click="currentTab='Work-tab'" @mouseover="tab='Work-tab'" @mouseout="tab=currentTab">
-            <i class="fas fa-briefcase"></i> <span class="hide-small">My Work</span>
+            <Icon icon="briefcase"></Icon> <span class="hide-small">My Work</span>
           </li>
         </nuxt-link>
         <nuxt-link to="/contact">
           <li ref="Contact-tab" @click="currentTab='Contact-tab'" @mouseover="tab='Contact-tab'" @mouseout="tab=currentTab">
-            <i class="fas fa-comment-dots"></i> <span class="hide-small">Contact</span>
+            <Icon icon="comment-dots"></Icon> <span class="hide-small">Contact</span>
           </li>
         </nuxt-link>
       </ul>
@@ -33,7 +33,12 @@
 </template>
 
 <script>
+import Icon from '~/components/Icon.vue'
+
 export default {
+  components: {
+    Icon
+  },
   data: () => {
     return {
       tab: undefined,
@@ -42,8 +47,8 @@ export default {
       highlightStyle: {
         left: "50px"
       },
-      icons: ['fa-user', 'fa-user-astronaut', 'fa-user-secret', 'fa-user-ninja', 'fa-user-graduate'],
-      icon: []
+      icons: ['user', 'user-astronaut', 'user-secret', 'user-ninja', 'user-graduate'],
+      icon: "user"
     }
   },
   watch: {
@@ -58,8 +63,7 @@ export default {
   },
   mounted: function() {
     this.tab = this.currentTab
-    this.icon.push(this.icons[Math.floor(Math.random() * this.icons.length)])
-    console.log("using icon", this.icon[0])
+    this.icon = this.icons[Math.floor(Math.random() * this.icons.length)]
   }
 }
 </script>
@@ -102,8 +106,8 @@ export default {
     height: 4px;
     width: 20%;
     background-color: $colour-primary-0;
-    transition: left 0.1s linear 0.01s;
 
+    transition: left 0.1s linear 0.01s, bottom 0.25s ease-in 0.00s;
     bottom: -1rem;
   }
 
@@ -181,6 +185,9 @@ export default {
       height: 4px;
       bottom: -2rem;
       width: 75% * 0.25;
+
+      /** Transition to large */
+      transition: left 0.1s linear 0.01s, bottom 0.25s ease-out 0.0s;
     }
   }
 

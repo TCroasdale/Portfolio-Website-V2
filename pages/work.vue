@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <script src="https://kit.fontawesome.com/af2b26fd07.js" crossorigin="anonymous"></script>
   </div>
 </template>
 
