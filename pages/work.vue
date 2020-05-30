@@ -1,45 +1,66 @@
 <template>
   <div class="container">
-    <script src="https://kit.fontawesome.com/af2b26fd07.js" crossorigin="anonymous"></script>
+    <h1>My Work</h1>
+    <div class="projects-container">
+        <ProjectCard v-for="project in allProjects" :key="project.path"></ProjectCard>
+    </div>
   </div>
 </template>
 
 <script>
+import ProjectCard from '~/components/ProjectCard.vue'
 
 export default {
+  components: {
+      ProjectCard
+  },
+  asyncData({ app }) {
+    return {
+      allProjects: app.$markdown.content,
+      projectsFrontMatter: app.$markdown.loadData()
+    }
+  },
   data: () => {
     return {
       aboutTab: false,
-      workTab: true,
+      workTab: false,
       contactTab: false,
+      pageContent: null
     }
   },
-  methods: {
-    changeTab: function (e) {}
+  created() {
   }
-  
 
 }
 </script>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital@1&display=swap'); 
+<style lang="scss">
+  @import "~/assets/colours.scss";
 
-.dnone {
-    display: none !important;
-}
+  .container {
+    display: block;
+    width: 80%;
+    margin: 3rem auto;
+    min-height: 100vh;
+    // background-color: $colour-primary-0;
+    padding: 1rem 5px;
+  }
 
-h1, h2, h3, h4, h5, h6, .heading {
-  font-family: 'Open Sans'
-}
+  .container h1 {
+    background-color: $colour-primary-0;
+    color: $colour-primary-1;
+    width: 50%;
+    min-width: 250px;
+    margin: 1rem auto;
+    padding: 2px 2rem;
+    font-size: 2rem;
+    border-radius: 2rem;
+    border: 1rem;
+  }
 
-p, a, li, .text {
-  font-family: 'Roboto Mono'
-}
+  .projects-container {
+      display: flex;
+      flex-flow: row wrap;
+  }
 
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-}
 </style>

@@ -1,7 +1,4 @@
 <template>
-  <div class="container">
-    <script src="https://kit.fontawesome.com/af2b26fd07.js" crossorigin="anonymous"></script>
-  </div>
 </template>
 
 <script>
@@ -39,10 +36,5 @@ h1, h2, h3, h4, h5, h6, .heading {
 
 p, a, li, .text {
   font-family: 'Roboto Mono'
-}
-
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
 }
 </style>

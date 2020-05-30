@@ -33,7 +33,7 @@ export default {
   ** Nuxt.js dev-modules
   */
   buildModules: [
-    // 'nuxt-markdown'
+    'nuxt-markdown'
   ],
   /*
   ** Nuxt.js modules
