@@ -5,6 +5,7 @@
 </template>
 
 <script>
+
 export default {
   data: () => {
     return {
@@ -14,11 +15,7 @@ export default {
     }
   },
   methods: {
-    changeTab: function (e) {
-      this.aboutTab = e == "About-tab"
-      this.workTab = e == "Work-tab"
-      this.contactTab = e == "Contact-tab"
-    }
+    changeTab: function (e) {}
   }
   
 

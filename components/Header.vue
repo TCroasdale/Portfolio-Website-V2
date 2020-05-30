@@ -6,28 +6,28 @@
     </div>
     <nav ref="navbar">
       <ul>
-        <a href="#">
+        <nuxt-link to="/">
           <li ref="Home-tab" @click="currentTab='Home-tab'" @mouseover="tab='Home-tab'" @mouseout="tab=currentTab">
-            <i class="fas fa-home"></i> Home
+            <i class="fas fa-home"></i> <span class="hide-small">Home</span>
           </li>
-        </a>
-        <a href="#">
+        </nuxt-link>
+        <nuxt-link to="/about">
           <li ref="About-tab" @click="currentTab='About-tab'" @mouseover="tab='About-tab'" @mouseout="tab=currentTab">
-            <i v-bind:class="icon" class="fas"></i> About
+            <i v-bind:class="icon" class="fas"></i> <span class="hide-small">About</span>
           </li>
-        </a>
-        <a href="#">
+        </nuxt-link>
+        <nuxt-link to="/work">
           <li ref="Work-tab" @click="currentTab='Work-tab'" @mouseover="tab='Work-tab'" @mouseout="tab=currentTab">
-            <i class="fas fa-briefcase"></i> My Work
+            <i class="fas fa-briefcase"></i> <span class="hide-small">My Work</span>
           </li>
-        </a>
-        <a href="#">
+        </nuxt-link>
+        <nuxt-link to="/contact">
           <li ref="Contact-tab" @click="currentTab='Contact-tab'" @mouseover="tab='Contact-tab'" @mouseout="tab=currentTab">
-            <i class="fas fa-comment-dots"></i> Contact
+            <i class="fas fa-comment-dots"></i> <span class="hide-small">Contact</span>
           </li>
-        </a>
+        </nuxt-link>
       </ul>
-      <div :style="highlightStyle" ref="nav-highlight" id="nav-highlight"></div>
+      <div :style="highlightStyle" ref="nav-highlight" id="nav-highlight" class="hide-small"></div>
     </nav>
   </div>
 </template>
@@ -142,7 +142,7 @@ export default {
     justify-content: center;
     margin: 0 12.5%;
   //  box-shadow: 0px 0px 15px black;
-    transform: translateY(40vh);
+    transform: translateY(20vh);
 
     /** Transition to large */
     transition: margin 0.25s ease-in 0.0s, height 0.25s ease-in 0.0s,
@@ -181,6 +181,16 @@ export default {
       height: 4px;
       bottom: -2rem;
       width: 75% * 0.25;
+    }
+  }
+
+   @media only screen and (max-width: 650px) {
+    .hide-small {
+        display: none;
+    }
+
+    #header.large .title {
+      font-size: 1.25rem;
     }
   }
 
