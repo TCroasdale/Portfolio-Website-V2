@@ -1,8 +1,9 @@
 <template>
   <div>
+    <Spinner v-bind:isLoading="!isLoaded" />
     <Header ref="header"></Header>
     <div>
-      <ThreeDViewer></ThreeDViewer>
+      <ThreeDViewer @loaded="onBGLoad"></ThreeDViewer>
     </div>
     <nuxt />
   </div>
@@ -12,12 +13,24 @@
 import Logo from '~/components/Logo.vue'
 import Header from '~/components/Header.vue'
 import ThreeDViewer from '~/components/3DViewer.vue'
+import Spinner from '~/components/Spinner.vue'
 
 export default {
   components: {
     Logo,
     Header,
-    ThreeDViewer
+    ThreeDViewer,
+    Spinner
+  },
+  data: function () {
+    return {
+      isLoaded: false
+    }
+  },
+  methods: {
+    onBGLoad: function (e) {
+      this.isLoaded = true
+    }
   }
 }
 </script>
