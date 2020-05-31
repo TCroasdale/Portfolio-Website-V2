@@ -22,6 +22,7 @@ export default {
       clock: undefined,
       targetFPS: 30,
       scale: 3,
+      bounds: 10,
       texture_1: {
         diffuse_path: '/textures/planet_1.diffuse.png',
         displacement_path: '/textures/planet_1.displacement.png',
@@ -36,8 +37,8 @@ export default {
       }, 1000 / this.targetFPS )
       this.updateBodies()
 
-      this.camera.position.x = Math.sin(this.clock.elapsedTime * 0.1) * 25 * this.scale
-      this.camera.position.z = Math.cos(this.clock.elapsedTime * 0.1) * 25 * this.scale
+      this.camera.position.x = Math.sin(this.clock.elapsedTime * 0.25) * this.bounds * this.scale
+      this.camera.position.z = Math.cos(this.clock.elapsedTime * 0.25) * this.bounds * this.scale
       this.camera.lookAt(this.bodies[this.bodies.length - 1].position)
 
       this.renderer.render(this.scene, this.camera)
@@ -52,6 +53,7 @@ export default {
       console.log(`creating ${num} bodies`)
       let material = new THREE.MeshToonMaterial({ map: this.texture_1.diffuse,
                                                   displacementMap: this.texture_1.displacement,
+                                                  displacementScale: 0.5,
                                                   specularMap: this.texture_1.specular, 
                                                   color: 0xaaaaaa })
       let sunMaterial = new THREE.MeshToonMaterial({color: 0xffff00 })
@@ -61,15 +63,17 @@ export default {
         let size = (this.scale / num)
         let geometry = new THREE.SphereGeometry(size, 8, 16 )
         let body = new THREE.Mesh(geometry, material)
-        let x = (Math.random()-0.5)*2 * this.scale * 5
-        let y = (Math.random()-0.5)*2 * this.scale * 5
-        let z = (Math.random()-0.5)*2 * this.scale * 5
+        let x = (Math.random()-0.5) * this.scale * this.bounds
+        let y = (Math.random()-0.5) * this.scale * this.bounds
+        let z = (Math.random()-0.5) * this.scale * this.bounds
         body.position.set(x, y, z)
         body.userData = {
-          vx: 0, vy: 0, vz: 0,
+          // vx: (Math.random()-0.5) * this.scale, vy: (Math.random()-0.5) * this.scale, vz: (Math.random()-0.5) * this.scale,
+          vx: 0.1, vy: 0.1 , vz: -z / this.scale,
           m: size,
           canMove: true,
-        spinSpeed: Math.random() * 0.75
+          g: 9.81,
+          spinSpeed: (Math.random() * 0.75) + 0.25
         }
         this.scene.add(body)
         this.bodies.push(body)
@@ -78,15 +82,17 @@ export default {
       /** Create Sun */
       let light = new THREE.PointLight(0xffffff, 1, 100)
       let size = (this.scale * 2 / num)
-      let geometry = new THREE.SphereGeometry(size, 8, 16 )
+      let meshSize = size * (Math.random() + 0.25) * 2
+      let geometry = new THREE.SphereGeometry(meshSize, 8, 16 )
       let body = new THREE.Mesh(geometry, sunMaterial)
-      let x = (Math.random()-0.5)*2 * this.scale
-      let y = (Math.random()-0.5)*2 * this.scale
-      let z = (Math.random()-0.5)*2 * this.scale
+      let x = 0
+      let y = 0
+      let z = 0
       body.position.set(x, y, z)
       body.userData = {
         vx: 0, vy: 0, vz: 0,
-        m: size * 3,
+        m: size * 5,
+        g: 18,
         canMove: false,
         spinSpeed: Math.random() * 0.75
       }
@@ -95,7 +101,7 @@ export default {
       this.bodies.push(body)
     },
     updateBodies: function () {
-      let G = 9.81;
+      let G = 9.81
       let dT = this.clock.getDelta()
       for (let i=0; i < this.bodies.length; i++){
         let bodyI = this.bodies[i]
@@ -113,9 +119,9 @@ export default {
                 let denominator = Math.sqrt(magSq + 0.01)
                 denominator = denominator * denominator * denominator
 
-                sum.x += (bodyJ.userData.m * diff.x) / denominator
-                sum.y += (bodyJ.userData.m * diff.y) / denominator
-                sum.z += (bodyJ.userData.m * diff.z) / denominator
+                sum.x += (bodyJ.userData.g * bodyJ.userData.m * diff.x) / denominator
+                sum.y += (bodyJ.userData.g * bodyJ.userData.m * diff.y) / denominator
+                sum.z += (bodyJ.userData.g * bodyJ.userData.m * diff.z) / denominator
               }
             }
           }
@@ -123,6 +129,18 @@ export default {
           bodyI.userData.vx += a.x * dT
           bodyI.userData.vy += a.y * dT
           bodyI.userData.vz += a.z * dT
+
+          /** Reverse bodies if mag is too large */
+          let x = bodyI.position.x
+          let y =bodyI.position.y
+          let z = bodyI.position.z
+          let magsq = (x*x )+ (y* y) + (z*z)
+          let max = (this.bounds * 10) * this.scale
+          if (magsq > max * max) {
+            bodyI.userData.vx = -bodyI.userData.vx + (Math.random()-0.5) * 2
+            bodyI.userData.vy = -bodyI.userData.vy + (Math.random()-0.5) * 2
+            bodyI.userData.vz = -bodyI.userData.vz + (Math.random()-0.5) * 2
+          }
         }
       }
 
@@ -140,7 +158,7 @@ export default {
     this.scene = new THREE.Scene();
     this.size.w = this.$refs['canvas-parent'].offsetWidth
     this.size.h = this.$refs['canvas-parent'].offsetHeight
-    this.camera = new THREE.PerspectiveCamera(40, this.size.w / this.size.h, 0.1, 1000)
+    this.camera = new THREE.PerspectiveCamera(60, this.size.w / this.size.h, 0.1, 1000)
     this.camera.position.z = this.scale * 50;
 
     this.loader = new THREE.TextureLoader();
@@ -148,25 +166,16 @@ export default {
     this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true})
     this.renderer.setSize(this.size.w, this.size.h)
     this.$refs['canvas-parent'].appendChild(this.renderer.domElement)
-    this.renderer.setClearColor(0x00000a)
+    this.renderer.setClearColor(0x000008)
 
-
-    // let light = new THREE.PointLight(0xffff33, 1, 100)
-    // let geometry = new THREE.SphereGeometry(this.scale * 0.1 , 8, 16 )
-    // let material = new THREE.MeshToonMaterial({color: 0xffff33 })
-    // let body = new THREE.Mesh(geometry, material)
-    // light.position.set(0, 0, 0)
-    // this.scene.add(light)
-    // light.add(body)
     this.clock = new THREE.Clock()
 
     this.loadTextures()
-    this.createSolarSystem(6)
+    this.createSolarSystem(9)
 
     this.animate()
     this.$emit('loaded', true)
     console.log("finished loading")
-    // this.loader = new GLTF.GLTFLoader()
   }
 }
 </script>
