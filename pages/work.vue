@@ -69,7 +69,7 @@ export default {
 
   .container {
     display: block;
-    width: 80%;
+    width: 100%;
     margin: 3rem auto;
     min-height: 100vh;
     // background-color: $colour-primary-0;

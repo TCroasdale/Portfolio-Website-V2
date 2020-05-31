@@ -32,7 +32,7 @@ export default {
 
 .card {
   display: block;
-  min-width: 250px;
+  min-width: 350px;
   width: 45%;
   margin: 1rem auto;
   background-color: $colour-primary-1;
@@ -75,6 +75,8 @@ export default {
   width: 100%;
   height: 15rem;
   z-index: 1;
+  object-fit:cover;
+  object-position: center;
 }
 
 .card-header {
