@@ -6,7 +6,7 @@
 import Vue from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBriefcase, faHome, faCommentDots, faUserAstronaut, faUser, faUserSecret, faUserGraduate, faUserNinja } from '@fortawesome/free-solid-svg-icons'
+import { faBriefcase, faHome, faCommentDots, faUserAstronaut, faUser, faUserSecret, faUserGraduate, faUserNinja, faCog } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faBriefcase)
 library.add(faHome)
@@ -16,6 +16,7 @@ library.add(faUser)
 library.add(faUserSecret)
 library.add(faUserGraduate)
 library.add(faUserNinja)
+library.add(faCog)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

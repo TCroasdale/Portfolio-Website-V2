@@ -143,11 +143,11 @@ export default {
     this.clock = new THREE.Clock()
 
     this.createSolarSystem(6)
-    console.log(this.bodies)
 
     this.animate()
-
-    this.loader = new GLTF.GLTFLoader()
+    this.$emit('loaded', true)
+    console.log("finished loading")
+    // this.loader = new GLTF.GLTFLoader()
   }
 }
 </script>
