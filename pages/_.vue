@@ -8,7 +8,7 @@
 export default {
   asyncData({ app }) {
     return {
-      allBlogPosts: app.$markdown.content,
+      allBlogPosts: app.$markdown.projects,
       blogPostFrontMatter: app.$markdown.loadData()
     }
   },
@@ -22,15 +22,15 @@ export default {
   },
   created() {
     this.pageContent = () => this.$markdown.loadContent()
-    // console.log(this.pageContent)
-    // console.log(this.blogPostFrontMatter)
+    console.log(this.pageContent)
+    console.log(this.blogPostFrontMatter)
   }
   
 
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
   @import "~/assets/colours.scss";
 
   .container {
