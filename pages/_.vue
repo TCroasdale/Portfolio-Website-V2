@@ -5,7 +5,12 @@
 </template>
 
 <script>
+import Icon from '~/components/Icon.vue'
+
 export default {
+  components: {
+    Icon
+  },
   asyncData({ app }) {
     return {
       allBlogPosts: app.$markdown.projects,
@@ -22,8 +27,6 @@ export default {
   },
   created() {
     this.pageContent = () => this.$markdown.loadContent()
-    console.log(this.pageContent)
-    console.log(this.blogPostFrontMatter)
   }
   
 
@@ -52,6 +55,51 @@ export default {
     font-size: 2rem;
     border-radius: 2rem;
     border: 1rem;
+  }
+
+  .nuxt-markdown h2 {
+    background-color: $colour-primary-0;
+    color: $colour-primary-1;
+    width: 50%;
+    min-width: 250px;
+    margin: 1rem auto;
+    padding: 2px 2rem;
+    font-size: 2rem;
+    border-radius: 2rem;
+    border: 1rem;
+  }
+
+  .nuxt-markdown h4 {
+    background-color: $colour-primary-1;
+    color: $colour-primary-0;
+    width: 50%;
+    min-width: 250px;
+    margin: 1rem auto;
+    padding: 2px 2rem;
+    font-size: 2rem;
+    border-radius: 2rem;
+    border: 1rem;
+    text-align: center;
+    text-decoration: none;
+
+    transition: 0.1s ease-in-out;
+  }
+
+  .nuxt-markdown a {
+    text-decoration: none;
+  }
+
+  .nuxt-markdown h4:hover {
+    text-decoration: none;
+    background-color: $colour-primary-0;
+    color: $colour-primary-1;
+  }
+
+  .nuxt-markdown .small-right {
+    float: right;
+    font-size: 1rem;
+    justify-content: center;
+    margin: 0.5rem;
   }
 
   .nuxt-markdown h1:not(:first-child) {
