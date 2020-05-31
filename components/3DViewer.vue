@@ -173,9 +173,18 @@ export default {
     this.loadTextures()
     this.createSolarSystem(9)
 
+    /** resize callback */
+    window.addEventListener('resize', () => {
+      this.size.w = this.$refs['canvas-parent'].offsetWidth
+      this.size.h = this.$refs['canvas-parent'].offsetHeight
+      this.camera = new THREE.PerspectiveCamera(60, this.size.w / this.size.h, 0.1, 1000)
+      this.renderer.setSize(this.size.w, this.size.h)
+    })
+
     this.animate()
     this.$emit('loaded', true)
     console.log("finished loading")
+    
   }
 }
 </script>

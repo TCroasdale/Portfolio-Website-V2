@@ -30,11 +30,11 @@ export default {
     display: none !important;
 }
 
-h1, h2, h3, h4, h5, h6, .heading {
+h1, h2, h3, .heading {
   font-family: 'Open Sans'
 }
 
-p, a, li, .text {
+p, a, li, h4, h5, h6, .text {
   font-family: 'Roboto Mono'
 }
 </style>

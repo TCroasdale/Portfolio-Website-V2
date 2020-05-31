@@ -10,17 +10,22 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import Logo from '~/components/Logo.vue'
+import Icon from '~/components/Icon.vue'
 import Header from '~/components/Header.vue'
 import ThreeDViewer from '~/components/3DViewer.vue'
 import Spinner from '~/components/Spinner.vue'
+
+Vue.component('Icon', Icon)
 
 export default {
   components: {
     Logo,
     Header,
     ThreeDViewer,
-    Spinner
+    Spinner,
+    Icon
   },
   data: function () {
     return {
