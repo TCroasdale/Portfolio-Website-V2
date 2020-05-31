@@ -21,7 +21,12 @@ export default {
       bodies: [],
       clock: undefined,
       targetFPS: 30,
-      scale: 3
+      scale: 3,
+      texture_1: {
+        diffuse_path: '/textures/planet_1.diffuse.png',
+        displacement_path: '/textures/planet_1.displacement.png',
+        specular_path: '/textures/planet_1.specular.png'
+      }
     }
   },
   methods: {
@@ -31,16 +36,24 @@ export default {
       }, 1000 / this.targetFPS )
       this.updateBodies()
 
-      this.camera.position.x = Math.sin(this.clock.elapsedTime * 0.25) * 25 * this.scale
-      this.camera.position.z = Math.cos(this.clock.elapsedTime * 0.25) * 25 * this.scale
+      this.camera.position.x = Math.sin(this.clock.elapsedTime * 0.1) * 25 * this.scale
+      this.camera.position.z = Math.cos(this.clock.elapsedTime * 0.1) * 25 * this.scale
       this.camera.lookAt(this.bodies[this.bodies.length - 1].position)
 
       this.renderer.render(this.scene, this.camera)
     },
+    loadTextures: function() {
+      this.texture_1.diffuse = this.loader.load(this.texture_1.diffuse_path)
+      this.texture_1.displacement = this.loader.load(this.texture_1.displacement_path)
+      this.texture_1.specular = this.loader.load(this.texture_1.specular_path)
+    },
     createSolarSystem: function (num) {
       num = num == undefined ? 3 : num;
       console.log(`creating ${num} bodies`)
-      let material = new THREE.MeshToonMaterial({color: 0xaaaaaa })
+      let material = new THREE.MeshToonMaterial({ map: this.texture_1.diffuse,
+                                                  displacementMap: this.texture_1.displacement,
+                                                  specularMap: this.texture_1.specular, 
+                                                  color: 0xaaaaaa })
       let sunMaterial = new THREE.MeshToonMaterial({color: 0xffff00 })
 
       for (let i = 0; i < num; i ++) {
@@ -48,14 +61,15 @@ export default {
         let size = (this.scale / num)
         let geometry = new THREE.SphereGeometry(size, 8, 16 )
         let body = new THREE.Mesh(geometry, material)
-        let x = (Math.random()-0.5)*2 * this.scale * 10
-        let y = (Math.random()-0.5)*2 * this.scale * 10
-        let z = (Math.random()-0.5)*2 * this.scale * 10
+        let x = (Math.random()-0.5)*2 * this.scale * 5
+        let y = (Math.random()-0.5)*2 * this.scale * 5
+        let z = (Math.random()-0.5)*2 * this.scale * 5
         body.position.set(x, y, z)
         body.userData = {
           vx: 0, vy: 0, vz: 0,
           m: size,
-          canMove: true
+          canMove: true,
+        spinSpeed: Math.random() * 0.75
         }
         this.scene.add(body)
         this.bodies.push(body)
@@ -72,8 +86,9 @@ export default {
       body.position.set(x, y, z)
       body.userData = {
         vx: 0, vy: 0, vz: 0,
-        m: size,
-        canMove: false
+        m: size * 3,
+        canMove: false,
+        spinSpeed: Math.random() * 0.75
       }
       this.scene.add(body)
       body.add(light)
@@ -117,6 +132,7 @@ export default {
         bodyI.position.x += bodyI.userData.vx * dT
         bodyI.position.y += bodyI.userData.vy * dT
         bodyI.position.z += bodyI.userData.vz * dT
+        bodyI.rotation.y += bodyI.userData.spinSpeed * dT
       }
     }
   },
@@ -126,6 +142,8 @@ export default {
     this.size.h = this.$refs['canvas-parent'].offsetHeight
     this.camera = new THREE.PerspectiveCamera(40, this.size.w / this.size.h, 0.1, 1000)
     this.camera.position.z = this.scale * 50;
+
+    this.loader = new THREE.TextureLoader();
 
     this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true})
     this.renderer.setSize(this.size.w, this.size.h)
@@ -142,6 +160,7 @@ export default {
     // light.add(body)
     this.clock = new THREE.Clock()
 
+    this.loadTextures()
     this.createSolarSystem(6)
 
     this.animate()
