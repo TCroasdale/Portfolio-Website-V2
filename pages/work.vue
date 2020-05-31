@@ -1,8 +1,16 @@
 <template>
   <div class="container">
-    <h1>My Work</h1>
+    <h1>Websites</h1>
     <div class="projects-container">
-        <ProjectCard v-for="project in allProjects" :key="project.path"></ProjectCard>
+        <ProjectCard v-for="project in allWebsites" :key="project.path" v-bind:projectData="project"></ProjectCard>
+    </div>
+    <h1>Hackathons</h1>
+    <div class="projects-container">
+        <ProjectCard v-for="project in allHackathons" :key="project.path" v-bind:projectData="project"></ProjectCard>
+    </div>
+    <h1>Games</h1>
+    <div class="projects-container">
+        <ProjectCard v-for="project in allGames" :key="project.path" v-bind:projectData="project"></ProjectCard>
     </div>
   </div>
 </template>
@@ -16,7 +24,7 @@ export default {
   },
   asyncData({ app }) {
     return {
-      allProjects: app.$markdown.content,
+      allPages: app.$markdown.content,
       projectsFrontMatter: app.$markdown.loadData()
     }
   },
@@ -29,12 +37,34 @@ export default {
     }
   },
   created() {
+  },
+  computed: {
+    allProjects() {
+      return this.allPages.filter(page => {
+          return page.isProject
+      })
+    },
+    allWebsites() {
+      return this.allProjects.filter(page => {
+          return page.tag == "Website"
+      })
+    },
+    allHackathons() {
+      return this.allProjects.filter(page => {
+          return page.tag == "Hackathon"
+      })
+    },
+    allGames() {
+      return this.allProjects.filter(page => {
+          return page.tag == "Game"
+      })
+    }
   }
 
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import "~/assets/colours.scss";
 
   .container {
