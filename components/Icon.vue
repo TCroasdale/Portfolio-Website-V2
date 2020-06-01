@@ -1,5 +1,5 @@
 <template>
-    <font-awesome-icon v-bind:icon="[prefix === undefined ? 'fas' : prefix, icon]">{{ text }}</font-awesome-icon>
+    <span class="highlight"><font-awesome-icon v-bind:icon="[prefix === undefined ? 'fas' : prefix, icon]">{{ text }}</font-awesome-icon></span>
 </template>
 
 <script>
@@ -36,3 +36,12 @@ export default {
 }
 
 </script>
+
+<style lang="scss" scoped>
+@import "~/assets/colours.scss";
+
+.highlight {
+    color: $colour-secondary-1-2;
+}
+
+</style>
