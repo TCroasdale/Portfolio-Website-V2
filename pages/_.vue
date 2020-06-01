@@ -72,7 +72,7 @@ export default {
   .nuxt-markdown h4 {
     background-color: $colour-primary-1;
     color: $colour-primary-0;
-    width: 50%;
+    width: 100%;
     min-width: 250px;
     margin: 1rem auto;
     padding: 2px 2rem;

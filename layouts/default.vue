@@ -36,7 +36,8 @@ export default {
     onBGLoad: function (e) {
       this.isLoaded = true
     }
-  }
+  },
+  transition: "default"
 }
 </script>
 
@@ -89,4 +90,15 @@ html {
   background-color: #35495e;
 }
 
+
+.page-enter-active,
+.page-leave-active {
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
+  transition-duration: 500ms;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
 </style>
