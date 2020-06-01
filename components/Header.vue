@@ -39,11 +39,14 @@ export default {
   components: {
     Icon
   },
+  props: {
+    currentTab: String
+  },
   data: () => {
     return {
       tab: undefined,
       isLarge: true,
-      currentTab: 'Home-tab',
+      // currentTab: 'Home-tab',
       highlightStyle: {
         left: "50px"
       },
