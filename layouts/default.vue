@@ -1,7 +1,7 @@
 <template>
   <div>
     <Spinner v-bind:isLoading="!isLoaded" />
-    <Header ref="header"></Header>
+    <Header v-bind:currentTab="tab" ref="header"></Header>
     <div>
       <ThreeDViewer @loaded="onBGLoad"></ThreeDViewer>
     </div>
@@ -29,7 +29,8 @@ export default {
   },
   data: function () {
     return {
-      isLoaded: false
+      isLoaded: false,
+      tab: "Home-tab"
     }
   },
   methods: {
@@ -37,7 +38,19 @@ export default {
       this.isLoaded = true
     }
   },
-  transition: "default"
+  transition: "default",
+  mounted: function () {
+    console.log(this.$route)
+    if (this.$route.path == "/") {
+      this.tab = 'Home-tab'
+    } else if (this.$route.path == "/about") {
+      this.tab = 'About-tab'
+    } else if (this.$route.path == "/contact") {
+      this.tab = 'Contact-tab'
+    } else if (this.$route.path == "/work") {
+      this.tab = 'Work-tab'
+    } 
+  }
 }
 </script>
 
