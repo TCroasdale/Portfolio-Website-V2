@@ -63,9 +63,10 @@ export default {
   .nuxt-markdown h1::before, .nuxt-markdown h1::after {
     content: "";
     position: absolute;
-    height: 4px;
+    height: 8px;
     display: inline-block;
-    margin: 1rem 5px;
+    margin: 0 5px;
+    transform: translateY(1.1rem);
     // border: 2px solid $colour-secondary-1-0;
     justify-content: center;
   }
@@ -73,13 +74,13 @@ export default {
   .nuxt-markdown h1::before {
     left: 25px;
     right: 75%;
-    background: linear-gradient(to left, $colour-secondary-1-2 0%, $colour-primary-0 100%);
+    background: linear-gradient(to left, $colour-secondary-1-2 50%, $colour-primary-0 100%);
   }
 
   .nuxt-markdown h1::after {
     left: 75%;
     right: 25px;
-    background: linear-gradient(to right, $colour-secondary-1-2 0%, $colour-primary-0 100%);
+    background: linear-gradient(to right, $colour-secondary-1-2 50%, $colour-primary-0 100%);
   }
 
   .nuxt-markdown h2 {
