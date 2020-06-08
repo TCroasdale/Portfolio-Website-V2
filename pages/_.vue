@@ -38,7 +38,8 @@ export default {
 
   .container {
     display: block;
-    width: 80%;
+    width: 90%;
+    min-width: 330px;
     margin: 3rem auto;
     // min-height: 50vh;
     // background-color: $colour-primary-0;
@@ -46,15 +47,39 @@ export default {
   }
 
   .nuxt-markdown h1 {
+    position: relative;
     background-color: $colour-primary-0;
     color: $colour-primary-1;
-    width: 50%;
+    width: 100%;
     min-width: 250px;
     margin: 1rem auto;
     padding: 2px 2rem;
     font-size: 2rem;
     border-radius: 2rem;
     border: 1rem;
+    text-align: center;
+  }
+
+  .nuxt-markdown h1::before, .nuxt-markdown h1::after {
+    content: "";
+    position: absolute;
+    height: 4px;
+    display: inline-block;
+    margin: 1rem 5px;
+    // border: 2px solid $colour-secondary-1-0;
+    justify-content: center;
+  }
+
+  .nuxt-markdown h1::before {
+    left: 25px;
+    right: 75%;
+    background: linear-gradient(to left, $colour-secondary-1-2 0%, $colour-primary-0 100%);
+  }
+
+  .nuxt-markdown h1::after {
+    left: 75%;
+    right: 25px;
+    background: linear-gradient(to right, $colour-secondary-1-2 0%, $colour-primary-0 100%);
   }
 
   .nuxt-markdown h2 {
