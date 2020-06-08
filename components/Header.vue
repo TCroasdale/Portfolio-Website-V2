@@ -40,11 +40,12 @@ export default {
     Icon
   },
   props: {
-    currentTab: String
+    inheritedTab: String
   },
   data: () => {
     return {
       tab: undefined,
+      currentTab: undefined,
       isLarge: true,
       // currentTab: 'Home-tab',
       highlightStyle: {
@@ -65,6 +66,7 @@ export default {
     }
   },
   mounted: function() {
+    this.currentTab = this.inheritedTab
     this.tab = this.currentTab
     this.icon = this.icons[Math.floor(Math.random() * this.icons.length)]
   }
@@ -111,7 +113,7 @@ export default {
     background-color: $colour-primary-0;
 
     transition: left 0.1s linear 0.01s, bottom 0.25s ease-in 0.00s;
-    bottom: -1rem;
+    // bottom: -1rem;
   }
 
   nav {
@@ -129,16 +131,39 @@ export default {
   }
 
   nav ul {
+    display: inline-block;
     margin-top: 0;
     padding: 6px 0 6px 0;
-    height: 1rem;
+    height: 2rem;
+    width: 100%;
 
   }
 
   nav ul li {
     display: inline-block;
+    position: relative;
     width: 20%;
     color: $colour-primary-0
+  }
+
+  nav ul li::after {
+    position: absolute;
+    display: block;
+    z-index: 2;
+    content: "";
+    // height:100%;
+    width:100%;
+    top: 95%;
+    left:0;
+    bottom: -6px;
+    opacity: 0.0;
+    background: linear-gradient(to top, $colour-secondary-1-2 0%, $colour-secondary-1-1 100%);
+
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  nav ul li:hover::after {
+    opacity:0.6;
   }
 
 
@@ -177,7 +202,9 @@ export default {
     }
 
     nav ul {
-      transform: translateY(50%);
+      height: 4rem;
+      width: 100%;
+      transform: translateY(1rem);
 
       /** Transition to large */
       transition: border-radius 0.25s ease-in 0.0s, height 0.25s ease-in 0.0s, font-size 0.25s ease-in 0.0s,
@@ -186,8 +213,9 @@ export default {
 
     #nav-highlight {
       height: 4px;
-      bottom: -2rem;
-      width: 75% * 0.25;
+      bottom: 1rem;
+      // width: 75% * 0.25;
+      // width: 100%;
 
       /** Transition to large */
       transition: left 0.1s linear 0.01s, bottom 0.25s ease-out 0.0s;

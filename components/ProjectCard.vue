@@ -41,20 +41,22 @@ export default {
   border-radius: 1rem;
   height: 20rem;
   overflow: hidden;
+  position: relative;
 }
 
 .card:after {
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100%;
   display: block;
   content: "";
-  top: -20.25rem;
+  top: 0;
   left: 0;
-  border: 1px solid $colour-secondary-1-0;
+  border: 4px solid $colour-secondary-1-0;
+  opacity: 0;
   border-radius: 1rem;
 
-  transition: border 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .card-body {
@@ -119,7 +121,7 @@ export default {
 }
 
 .card:hover:after{
-  border: 4px solid $colour-secondary-1-0;
+  opacity: 0.75;
 }
 
 .card-header {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Spinner v-bind:isLoading="!isLoaded" />
-    <Header v-bind:currentTab="tab" ref="header"></Header>
+    <Header v-bind:inheritedTab="tab" ref="header"></Header>
     <div>
       <ThreeDViewer @loaded="onBGLoad"></ThreeDViewer>
     </div>
