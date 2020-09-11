@@ -1,23 +1,23 @@
 <template>
-  <div class="card">
-    <div class="card-content">
-      <div class="card-header">
-        <h1>{{ projectData.title }}</h1>
-        <h3 v-if="projectData.WIP" class="wip-text">[WIP]</h3>
-      </div>
-      <div class="card-body">
-        <img class="bg-img" v-bind:src="projectData.thumbnail" />
-        <div class="card-text">
-          <p>{{ projectData.description }} </p>
+    <a v-if="!projectData.hidden" class="card" :href="projectData.linksTo">
+      <div class="card-content">
+        <div class="card-header">
+          <h1>{{ projectData.title }}</h1>
+          <h3 v-if="projectData.WIP" class="wip-text">[WIP]</h3>
+        </div>
+        <div class="card-body">
+          <img class="bg-img" v-bind:src="projectData.thumbnail" />
+          <div class="card-text">
+            <p>{{ projectData.description }} </p>
+          </div>
+        </div>
+        <div class="card-footer">
+            <ul class="project-lang-list">
+              <li v-for="lang in projectData.languages" :key="lang">{{ lang }}</li>
+            </ul>
         </div>
       </div>
-      <div class="card-footer">
-          <ul class="project-lang-list">
-            <li v-for="lang in projectData.languages">{{ lang }}</li>
-          </ul>
-      </div>
-    </div>
-  </div>
+    </a>
 </template>
 
 <script>
@@ -53,7 +53,7 @@ export default {
   top: 0;
   left: 0;
   border: 4px solid $colour-secondary-1-0;
-  opacity: 0;
+  opacity: 0.1;
   border-radius: 1rem;
 
   transition: opacity 0.5s ease-in-out;
@@ -110,7 +110,7 @@ export default {
   width:100%;
   top:0;
   left:0;
-  opacity: 0.0;
+  opacity: 0.1;
   background: linear-gradient(to top, $colour-secondary-1-2 0%, $colour-secondary-1-1 100%);
 
   transition: opacity 0.5s ease-in-out;

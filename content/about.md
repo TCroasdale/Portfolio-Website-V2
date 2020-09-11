@@ -4,6 +4,7 @@ page: about
 
 # About
 
+
 I am a software developer, recently graduated from the University of Sheffield  where I studied Computer Science. I excel in full stack development, as well as working in a team and using software development techniques. I spend my free time programming personal projects, such as Gig Finder, and doing audio production.
 
 # Skills
