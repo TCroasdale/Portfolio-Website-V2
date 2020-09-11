@@ -20,7 +20,7 @@ export default {
       },
       bodies: [],
       clock: undefined,
-      targetFPS: 30,
+      targetFPS: 24,
       scale: 3,
       bounds: 10,
       texture_1: {
@@ -53,7 +53,7 @@ export default {
       console.log(`creating ${num} bodies`)
       let material = new THREE.MeshToonMaterial({ map: this.texture_1.diffuse,
                                                   displacementMap: this.texture_1.displacement,
-                                                  displacementScale: 0.5,
+                                                  displacementScale: 0.25,
                                                   specularMap: this.texture_1.specular, 
                                                   color: 0xaaaaaa })
       let sunMaterial = new THREE.MeshToonMaterial({color: 0xffff00 })
@@ -61,7 +61,7 @@ export default {
       for (let i = 0; i < num; i ++) {
 
         let size = (this.scale / num)
-        let geometry = new THREE.SphereGeometry(size, 8, 16 )
+        let geometry = new THREE.SphereGeometry(size, 4, 8 )
         let body = new THREE.Mesh(geometry, material)
         let x = (Math.random()-0.5) * this.scale * this.bounds
         let y = (Math.random()-0.5) * this.scale * this.bounds
