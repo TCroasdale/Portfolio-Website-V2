@@ -16,7 +16,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "nuxt": "^2.15.2",
-    "three": "^0.126.1"
+    "three": "^0.137.0"
   },
   "devDependencies": {
     "node-sass": "^4.14.1",
